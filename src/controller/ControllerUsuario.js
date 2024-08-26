@@ -3,9 +3,17 @@ import Auth from '../models/Auth.js'
 
 class UserController {
 
+  static async getAllUsers(req, res) {
+    try {
+      const users = await Usuario.getAllUsers()
+      res.status(200).json(users)
+    } catch (error) {
+      res.status(500).send('Erro ao buscar usuários')
+    }
+  }
+
   static async getUser(req, res) {
     const userId = req.params._id
-    
     try {
       const user = await Usuario.getUser(userId)
       res.status(200).json(user)
@@ -64,7 +72,6 @@ class UserController {
       res.status(500).send('Erro ao deletar usuário')
     }
   }
-
 }
 
 export default UserController
