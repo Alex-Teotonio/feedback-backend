@@ -7,10 +7,10 @@ import { fileURLToPath } from "url";
 
 const app = express();
 const corsOptions = {
-  origin: "http://localhost:3000", // Permite apenas este domínio
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Métodos permitidos
-  allowedHeaders: ["Content-Type", "Authorization"], // Cabeçalhos permitidos
-  credentials: true, // Permite cookies e outras credenciais
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
@@ -24,11 +24,8 @@ app.use(express.json());
 app.use(routes);
 
 app.use(express.urlencoded({ extended: true }));
-
-// Configuração para servir arquivos estáticos
 app.use("/uploads", express.static(path.resolve("uploads")));
 
-// Conectar ao MongoDB
 connection().catch(console.error);
 
 app.listen(PORT, () => {
