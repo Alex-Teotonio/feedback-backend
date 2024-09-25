@@ -39,13 +39,13 @@ class ControllerFeedback {
         type: file.mimetype.startsWith("image") ? "photo" : "video",
       }));
 
-      const { loja, produto, titulo, descrição, curtidas, id_usuario } =
+      const { loja, produto, titulo, descricao, curtidas, id_usuario } =
         req.body;
       const feedback = new Feedback(
         loja,
         produto,
         titulo,
-        descrição,
+        descricao,
         media,
         curtidas,
         id_usuario
