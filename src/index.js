@@ -10,11 +10,29 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
+
+// Defina as origens permitidas com base no ambiente
+const allowedOrigins = [
+  "http://localhost:3000", // Ambiente de desenvolvimento
+  "https://feedback-3lsctd2zh-alexteotonios-projects.vercel.app", // Ambiente de produção (Vercel)
+];
+
+// Configuração simples de CORS
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: function (origin, callback) {
+    // Permitir requisições sem origem (ex: mobile apps, cURL)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      const msg =
+        "A política de CORS para este site não permite acesso do origin especificado.";
+      return callback(new Error(msg), false);
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
+  credentials: true, // Se você precisar enviar cookies ou autenticação
 };
 
 app.use(cors(corsOptions));
