@@ -7,7 +7,7 @@ class ControllerFeedback {
       const feedback = await Feedback.getAllFeedback();
       res.status(200).json(feedback);
     } catch (error) {
-      res.status(500).send("Erro ao buscar feedbacks");
+      res.status(500).send("Erro ao buscar feedbackses");
     }
   }
 

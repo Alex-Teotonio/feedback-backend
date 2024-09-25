@@ -15,7 +15,28 @@ class Feedback {
 
   static async getAllFeedback() {
     const db = Client.db("TrabalhoBD2");
-    const feedback = await db.collection("Feedback").find({}).toArray();
+    const feedback = await db
+      .collection("Feedback")
+      .aggregate([
+        {
+          $addFields: {
+            id_usuario_obj: { $toObjectId: "$id_usuario" },
+          },
+        },
+        {
+          $lookup: {
+            from: "Usuários",
+            localField: "id_usuario_obj",
+            foreignField: "_id",
+            as: "usuario",
+          },
+        },
+        {
+          $unwind: "$usuario",
+        },
+      ])
+      .toArray();
+
     return feedback;
   }
 
