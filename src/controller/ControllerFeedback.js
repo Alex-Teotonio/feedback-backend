@@ -34,7 +34,6 @@ class ControllerFeedback {
 
   static async submitFeedback(req, res) {
     try {
-      // Construir o array de mídia
       const media = req.files.map((file) => ({
         url: `../uploads/${file.filename}`,
         type: file.mimetype.startsWith("image") ? "photo" : "video",
